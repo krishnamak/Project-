@@ -128,9 +128,17 @@ def process_document(file_path: str, filename: str) -> DocumentMetadata:
     """Process uploaded document and extract metadata"""
     file_size = os.path.getsize(file_path)
     
-    # Detect file type
-    mime = magic.Magic(mime=True)
-    file_type = mime.from_file(file_path)
+    # Detect file type using file extension
+    file_extension = os.path.splitext(file_path)[1].lower()
+    
+    if file_extension == '.pdf':
+        file_type = "PDF"
+    elif file_extension == '.docx':
+        file_type = "DOCX"
+    elif file_extension == '.txt':
+        file_type = "TXT"
+    else:
+        file_type = "Unknown"
     
     content = ""
     extracted_metadata = {}
