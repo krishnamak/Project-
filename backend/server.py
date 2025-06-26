@@ -129,22 +129,25 @@ def process_document(file_path: str, filename: str) -> DocumentMetadata:
     file_size = os.path.getsize(file_path)
     
     # Detect file type using file extension
-    file_extension = os.path.splitext(os.path.basename(file_path))[1].lower()
+    file_extension = os.path.splitext(filename)[1].lower()
     
+    content = ""
+    extracted_metadata = {}
+    
+    # Extract content based on file extension
     if file_extension == '.pdf':
+        content, extracted_metadata = extract_pdf_content(file_path)
         file_type = "PDF"
     elif file_extension == '.docx':
+        content, extracted_metadata = extract_docx_content(file_path)
         file_type = "DOCX"
     elif file_extension == '.txt':
+        content, extracted_metadata = extract_text_content(file_path)
         file_type = "TXT"
     else:
-        # Default to TXT for unknown types
-        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-            try:
-                f.read(1024)  # Try to read as text
-                file_type = "TXT"
-            except:
-                file_type = "Unknown"
+        # Try to read as text anyway
+        content, extracted_metadata = extract_text_content(file_path)
+        file_type = "TXT"  # Default to TXT for unknown types
     
     content = ""
     extracted_metadata = {}
