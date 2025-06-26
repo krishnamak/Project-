@@ -129,7 +129,7 @@ def process_document(file_path: str, filename: str) -> DocumentMetadata:
     file_size = os.path.getsize(file_path)
     
     # Detect file type using file extension
-    file_extension = os.path.splitext(file_path)[1].lower()
+    file_extension = os.path.splitext(os.path.basename(file_path))[1].lower()
     
     if file_extension == '.pdf':
         file_type = "PDF"
@@ -138,7 +138,13 @@ def process_document(file_path: str, filename: str) -> DocumentMetadata:
     elif file_extension == '.txt':
         file_type = "TXT"
     else:
-        file_type = "Unknown"
+        # Default to TXT for unknown types
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            try:
+                f.read(1024)  # Try to read as text
+                file_type = "TXT"
+            except:
+                file_type = "Unknown"
     
     content = ""
     extracted_metadata = {}
