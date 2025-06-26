@@ -260,15 +260,20 @@ async def search_documents_api(search_request: SearchRequest):
         
         if search_request.boolean_mode:
             # Handle boolean search (simplified)
-            if " AND " in query:
-                terms = query.split(" AND ")
-                for term in terms:
-                    search_conditions.append({"$text": {"$search": term.strip()}})
-            elif " OR " in query:
-                terms = query.split(" OR ")
-                or_conditions = [{"$text": {"$search": term.strip()}} for term in terms]
-                search_conditions.append({"$or": or_conditions})
-            else:
+            try:
+                if " AND " in query:
+                    terms = query.split(" AND ")
+                    for term in terms:
+                        search_conditions.append({"$text": {"$search": term.strip()}})
+                elif " OR " in query:
+                    terms = query.split(" OR ")
+                    or_conditions = [{"$text": {"$search": term.strip()}} for term in terms]
+                    search_conditions.append({"$or": or_conditions})
+                else:
+                    search_conditions.append({"$text": {"$search": query}})
+            except Exception as e:
+                logging.error(f"Boolean search error: {e}")
+                # Fallback to regular search
                 search_conditions.append({"$text": {"$search": query}})
         else:
             # Regular search
