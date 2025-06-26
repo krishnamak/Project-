@@ -1,0 +1,10 @@
+This is a test document for the document search system.
+Author: John Smith
+Publisher: Test Publications
+Keywords: test, document, search, system
+
+This document contains sample text that will be used to test the search functionality.
+It includes various terms that can be searched for, such as "confidential information",
+"research paper", and "document management".
+
+The system should be able to extract metadata from this document and make it searchable.
