@@ -107,15 +107,18 @@ user_problem_statement: "Offline search app for confidential information books, 
 backend:
   - task: "Document Upload API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented multi-format file upload with chunked upload support, handles PDF, DOCX, TXT files with metadata extraction"
+      - working: true
+        agent: "testing"
+        comment: "Tested file upload functionality for PDF, DOCX, and TXT files. All formats are properly uploaded and stored in MongoDB. File type detection works correctly for PDF and DOCX files."
 
   - task: "Document Processing Engine"
     implemented: true
