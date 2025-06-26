@@ -261,46 +261,34 @@ async def search_documents_api(search_request: SearchRequest):
         # Build MongoDB query
         search_conditions = []
         
-        if search_request.boolean_mode:
-            # Handle boolean search (simplified)
-            try:
-                if " AND " in query:
-                    terms = query.split(" AND ")
-                    for term in terms:
-                        search_conditions.append({"$text": {"$search": term.strip()}})
-                elif " OR " in query:
-                    terms = query.split(" OR ")
-                    or_conditions = [{"$text": {"$search": term.strip()}} for term in terms]
-                    search_conditions.append({"$or": or_conditions})
-                else:
-                    search_conditions.append({"$text": {"$search": query}})
-            except Exception as e:
-                logging.error(f"Boolean search error: {e}")
-                # Fallback to regular search
-                search_conditions.append({"$text": {"$search": query}})
-        else:
-            # Regular search
-            if search_request.search_type == "all":
-                search_conditions.append({"$text": {"$search": query}})
-            elif search_request.search_type == "title":
-                if search_request.fuzzy:
-                    search_conditions.append({"title": {"$regex": query, "$options": "i"}})
-                else:
-                    search_conditions.append({"title": {"$regex": f"^{query}$", "$options": "i"}})
-            elif search_request.search_type == "author":
-                if search_request.fuzzy:
-                    search_conditions.append({"author": {"$regex": query, "$options": "i"}})
-                else:
-                    search_conditions.append({"author": {"$regex": f"^{query}$", "$options": "i"}})
-            elif search_request.search_type == "publisher":
-                if search_request.fuzzy:
-                    search_conditions.append({"publisher": {"$regex": query, "$options": "i"}})
-                else:
-                    search_conditions.append({"publisher": {"$regex": f"^{query}$", "$options": "i"}})
-            elif search_request.search_type == "content":
-                search_conditions.append({"content": {"$regex": query, "$options": "i"}})
-            elif search_request.search_type == "keywords":
-                search_conditions.append({"keywords": {"$in": [query]}})
+        # Regular search (no boolean operators)
+        if search_request.search_type == "all":
+            search_conditions.append({"$or": [
+                {"title": {"$regex": query, "$options": "i"}},
+                {"author": {"$regex": query, "$options": "i"}},
+                {"publisher": {"$regex": query, "$options": "i"}},
+                {"content": {"$regex": query, "$options": "i"}},
+                {"keywords": {"$in": [query]}}
+            ]})
+        elif search_request.search_type == "title":
+            if search_request.fuzzy:
+                search_conditions.append({"title": {"$regex": query, "$options": "i"}})
+            else:
+                search_conditions.append({"title": {"$regex": f"^{query}$", "$options": "i"}})
+        elif search_request.search_type == "author":
+            if search_request.fuzzy:
+                search_conditions.append({"author": {"$regex": query, "$options": "i"}})
+            else:
+                search_conditions.append({"author": {"$regex": f"^{query}$", "$options": "i"}})
+        elif search_request.search_type == "publisher":
+            if search_request.fuzzy:
+                search_conditions.append({"publisher": {"$regex": query, "$options": "i"}})
+            else:
+                search_conditions.append({"publisher": {"$regex": f"^{query}$", "$options": "i"}})
+        elif search_request.search_type == "content":
+            search_conditions.append({"content": {"$regex": query, "$options": "i"}})
+        elif search_request.search_type == "keywords":
+            search_conditions.append({"keywords": {"$in": [query]}})
         
         # Apply filters
         if search_request.filters:
