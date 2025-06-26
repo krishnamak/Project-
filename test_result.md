@@ -219,11 +219,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Document Upload API"
-    - "Document Processing Engine"
-    - "Advanced Search API"
+    - "File Upload Interface"
+    - "Advanced Search Interface"
+    - "Document Management UI"
   stuck_tasks: []
-  test_all: false
+  test_all: true
   test_priority: "high_first"
 
 agent_communication:
