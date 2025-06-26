@@ -137,15 +137,18 @@ backend:
 
   - task: "Advanced Search API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented comprehensive search with full-text search, fuzzy matching using fuzzywuzzy, boolean operators (AND/OR), field-specific search, and advanced filters"
+      - working: true
+        agent: "testing"
+        comment: "Tested all search functionality. Basic search works correctly. Field-specific search (title, author, publisher, content, keywords) works as expected. Fuzzy matching successfully finds documents with similar terms. Boolean operators work but had to be modified to use regex instead of MongoDB text search due to 'Too many text expressions' error. Advanced filters by file type work correctly."
 
   - task: "Document Management APIs"
     implemented: true
