@@ -1,0 +1,7 @@
+This is a test document for upload.
+    Author: Jane Doe
+    Publisher: Test Corp
+    Keywords: test, upload, document
+
+    This document is used to test the upload functionality of the document search system.
+    It should be processed and indexed correctly.

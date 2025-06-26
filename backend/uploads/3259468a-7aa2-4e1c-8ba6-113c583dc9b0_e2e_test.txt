@@ -1,0 +1,7 @@
+This is an end-to-end test document.
+    Author: E2E Tester
+    Publisher: Testing Corp
+    Keywords: e2e, workflow, test
+
+    This document is specifically created to test the complete workflow
+    from upload to search to view to delete.
