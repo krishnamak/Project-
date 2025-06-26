@@ -1,0 +1,32 @@
+
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+          <w:body>
+            <w:p>
+              <w:r>
+                <w:t>Test DOCX Document for API Testing</w:t>
+              </w:r>
+            </w:p>
+            <w:p>
+              <w:r>
+                <w:t>Author: DOCX Test Author</w:t>
+              </w:r>
+            </w:p>
+            <w:p>
+              <w:r>
+                <w:t>Publisher: DOCX Test Publisher</w:t>
+              </w:r>
+            </w:p>
+            <w:p>
+              <w:r>
+                <w:t>This is a sample DOCX document used for testing the document search API.</w:t>
+              </w:r>
+            </w:p>
+            <w:p>
+              <w:r>
+                <w:t>It contains keywords like: confidential, research, information, search, testing.</w:t>
+              </w:r>
+            </w:p>
+          </w:body>
+        </w:document>
+        
