@@ -1,0 +1,14 @@
+
+        Test Document for API Testing
+        
+        Author: Test Author
+        Publisher: Test Publisher
+        
+        This is a sample text document used for testing the document search API.
+        It contains keywords like: confidential, research, information, search, testing.
+        
+        The document search system should be able to extract metadata and content from this file.
+        It should also be able to perform full-text search and find this document when searching for relevant terms.
+        
+        Additional test keywords: offline, document, system, extraction, processing.
+        
