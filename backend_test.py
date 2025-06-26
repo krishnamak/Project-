@@ -439,7 +439,7 @@ class DocumentSearchAPITest(unittest.TestCase):
             "fuzzy": True,
             "boolean_mode": False,
             "filters": {
-                "file_type": "TXT"
+                "file_type": "PDF"
             }
         }
         
@@ -448,9 +448,9 @@ class DocumentSearchAPITest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.json()
         
-        # Verify all results are TXT files
+        # Verify all results are PDF files
         for doc in data["documents"]:
-            self.assertEqual(doc["file_type"], "TXT")
+            self.assertEqual(doc["file_type"], "PDF")
         
         logger.info(f"Filtered search found {data['total_count']} documents")
     
